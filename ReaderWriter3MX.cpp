@@ -227,6 +227,11 @@ private:
 	}
 
 public:
+	virtual ReadResult readObject(const std::string& fileName, const osgDB::ReaderWriter::Options* options) const
+	{
+		ReadResult rr = readNode(fileName, options);
+		return rr;
+	}
 	virtual ReadResult readNode(const std::string& file, const osgDB::ReaderWriter::Options* options) const
 	{
 		std::string ext_3mx = osgDB::getLowerCaseFileExtension(file);
@@ -251,7 +256,8 @@ public:
 			inFile_3mx.seekg(0, std::ios::end);
 			std::streampos pos = inFile_3mx.tellg();
 			const int len = pos;
-			inFile_3mx.seekg(0, 0);
+			//inFile_3mx.seekg(0, 0);
+			inFile_3mx.seekg(0);
 
 			// read file
 			neb::CJsonObject oJson_3mx;
